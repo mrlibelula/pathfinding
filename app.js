@@ -304,10 +304,10 @@ generateWalls();
 generateWallsBtn.addEventListener('click', generateWalls);
 gridSizeInput.addEventListener('change', () => {
   gridSize = parseInt(gridSizeInput.value);
-  createGrid();
-  generateWalls();
   start = null;
   end = null;
+  createGrid();
+  generateWalls();
   updateStartButton();
 });
 startBtn.addEventListener('click', async () => {
