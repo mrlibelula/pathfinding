@@ -12,3 +12,5 @@ Welcome to the Pathfinding Visualizer! This project is built using HTML, Tailwin
 You can see the visualizer in action on the [demo site](https://pathfinding.libe.dev).
 
 To learn more about how I built this project, check out my detailed blog post [here](https://libe.dev/blog/building-a-pathfinding-visualizer-my-path-to-graph-algorithms/Mg).
+
+[libe.dev](https://libe.dev)
