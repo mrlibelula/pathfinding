@@ -114,13 +114,17 @@ function setEndNode(index) {
 }
 
 function updateStartButton() {
-  if (start !== null && end !== null) {
-    startBtn.disabled = false;
-    startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-  } else {
-    startBtn.disabled = true;
-    startBtn.classList.add('opacity-50', 'cursor-not-allowed');
-  }
+  start !== null && end !== null ? enableStartBtn() : disableStartBtn();
+}
+
+function enableStartBtn() {
+  startBtn.disabled = false;
+  startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+}
+
+function disableStartBtn() {
+  startBtn.disabled = true;
+  startBtn.classList.add('opacity-50', 'cursor-not-allowed');
 }
 
 function toggleWall(index) {
@@ -285,11 +289,13 @@ gridSizeInput.addEventListener('change', () => {
 startBtn.addEventListener('click', async () => {
   resetGrid();
   hideErrorButton();
+  disableStartBtn();
   let pathFound;
   pathFound = algorithmSelect.value === 'bfs' ? await bfs() : await dijkstra();
   pathFound ? await visualizePath() : showNoPathFound();
   // Stop in all cases
   stopTimer();
+  enableStartBtn();
 });
 
 // Prevent context menu on right-click
