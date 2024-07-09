@@ -179,7 +179,7 @@ function generateWalls() {
 
 function hideErrorButton() {
   distanceDiv.classList.remove('bg-gradient-to-br', 'from-red-400', 'via-red-900', 'to-black', 'animate-bounce', 'shadow');
-  distanceDiv.classList.add('bg-green-400');
+  distanceDiv.classList.add('bg-green-500');
 }
 
 function getNeighbors(index) {
@@ -265,7 +265,7 @@ async function visualizePath() {
     const prevNode = neighbors.reduce((a, b) => cells[a].distance < cells[b].distance ? a : b);
     if (prevNode !== start) {
       cells[prevNode].element.classList.remove('bg-yellow-400/60', 'animate-pulse');
-      cells[prevNode].element.classList.add('bg-green-400');
+      cells[prevNode].element.classList.add('bg-green-500');
       await new Promise(resolve => setTimeout(resolve, 10));
     }
     current = prevNode;
@@ -284,17 +284,17 @@ function resetGrid() {
   for (const cell of cells) {
     cell.distance = Infinity;
     cell.visited = false;
-    cell.element.classList.remove('bg-yellow-400/60', 'animate-pulse', 'bg-green-400');
+    cell.element.classList.remove('bg-yellow-400/60', 'animate-pulse', 'bg-green-500');
   }
   distanceDiv.classList.remove('bg-white');
-  distanceDiv.classList.add('bg-green-400');
+  distanceDiv.classList.add('bg-green-500');
   timerDiv.textContent = 'Time: 0 ms';
   updateInfoDisplay();
 }
 
 function showNoPathFound() {
   distanceDiv.textContent = 'No path found';
-  distanceDiv.classList.remove('bg-green-400');
+  distanceDiv.classList.remove('bg-green-500');
   distanceDiv.classList.add('bg-gradient-to-br', 'from-red-400', 'via-red-900', 'to-black', 'animate-bounce', 'shadow');
 }
 
