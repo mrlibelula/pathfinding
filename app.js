@@ -215,7 +215,7 @@ async function bfs() {
         queue.push(neighbor);
 
         if (neighbor !== end) {
-          cells[neighbor].element.classList.add('bg-yellow-400/60', 'animate-pulse');
+          cells[neighbor].element.classList.add('bg-gray-400/60', 'animate-pulse');
           await new Promise(resolve => setTimeout(resolve, 10));
         }
       }
@@ -247,7 +247,7 @@ async function dijkstra() {
         pq.push({ index: neighbor, distance: newDistance });
 
         if (neighbor !== end) {
-          cells[neighbor].element.classList.add('bg-yellow-400/60', 'animate-pulse');
+          cells[neighbor].element.classList.add('bg-gray-400/60', 'animate-pulse');
           await new Promise(resolve => setTimeout(resolve, 10));
         }
       }
@@ -264,7 +264,7 @@ async function visualizePath() {
     const neighbors = getNeighbors(current);
     const prevNode = neighbors.reduce((a, b) => cells[a].distance < cells[b].distance ? a : b);
     if (prevNode !== start) {
-      cells[prevNode].element.classList.remove('bg-yellow-400/60', 'animate-pulse');
+      cells[prevNode].element.classList.remove('bg-gray-400/60', 'animate-pulse');
       cells[prevNode].element.classList.add('bg-green-500');
       await new Promise(resolve => setTimeout(resolve, 10));
     }
@@ -284,7 +284,7 @@ function resetGrid() {
   for (const cell of cells) {
     cell.distance = Infinity;
     cell.visited = false;
-    cell.element.classList.remove('bg-yellow-400/60', 'animate-pulse', 'bg-green-500');
+    cell.element.classList.remove('bg-gray-400/60', 'animate-pulse', 'bg-green-500');
   }
   distanceDiv.classList.remove('bg-white');
   distanceDiv.classList.add('bg-green-500');
