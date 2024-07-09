@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinding Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .cell-wall {
+            background-image: url(https://libe.dev/images/portfolio/snake/wall.png);
+        }
+    </style>
+</head>
+<body class="bg-black/85 text-gray-300">
+    <div class="container max-w-2xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-center gap-x-4 xl:pt-2 pb-10">
+            <img class="w-5 h-5 invert" src="https://cdn1.iconfinder.com/data/icons/business-bicolor-3/512/social_graph-512.png" alt="">
+            <h1 class="text-xl tracking-widest text-white">Pathfinding Visualizer</h1>
+        </div>
+        <nav class="flex flex-wrap_ flex-col sm:flex-row items-center gap-x-4 gap-y-4 justify-center w-full sm:justify-between mb-4">
+            <button id="generateWalls" class=" w-48 sm:w-full bg-cyan-500 transition duration-300 ease-in-out hover:bg-cyan-600 px-4 py-1 rounded text-white font-semibold">
+                Reset
+            </button>
+            <div class="flex items-center w-full justify-center">
+                <label for="gridSize" class="mr-2 whitespace-nowrap">Grid size:</label>
+                <input type="number" id="gridSize" min="5" max="50" value="20" class="bg-gray-700 px-2 py-1 rounded w-16">
+            </div>
+            <div class="flex items-center w-full justify-center">
+                <label for="algorithm" class="mr-2 whitespace-nowrap">Algorithm:</label>
+                <select id="algorithm" class="bg-gray-700 px-2 py-1 rounded">
+                    <option value="bfs">BFS</option>
+                    <option value="dijkstra">Dijkstra's</option>
+                </select>
+            </div>
+            <button id="startVisualization" class="w w-48 sm:w-full bg-green-500 transition duration-300 ease-in-out hover:bg-green-600 px-4 py-1 rounded opacity-50 cursor-not-allowed font-bold" disabled>
+                Start
+            </button>
+        </nav>
+        <div id="grid" class="grid gap-1 mb-4"></div>
+        <div class="flex justify-between font-semibold text-center gap-x-2 leading-tight">
+            <div class="flex flex-col gap-y-2 w-full">
+                <div id="from" class="bg-white px-4 py-2 rounded text-black">From: Not set</div>
+                <div class="py-2 font-normal text-gray-400">Left click to set START node</div>
+            </div>
+            <div class="flex flex-col gap-y-2 w-full">
+                <div id="distance" class="bg-green-400 px-4 py-2 rounded text-white">Distance: 0</div>
+                <div id="timer" class="py-2 text-gray-400 rounded text-white font-semibold">
+                    Time: 0 ms
+                </div>
+            </div>
+            <div class="flex flex-col gap-y-2 w-full">
+                <div id="to" class="bg-rose-500 px-4 py-2 rounded text-white">To: Not set</div>
+                <div class="py-2 font-normal text-gray-400">Right click to set END node</div>
+            </div>
+        </div>
+
+        <div class="group flex justify-center py-10">
+            <a href="https://libe.dev" target="_other_LIBEDEV" class="flex items-center">
+                <svg class="block h-9 w-auto rounded text-white dark:text-gray-900 bg-gray-600 dark:bg-gray-300 hover:bg-black dark:hover:bg-white group-hover:bg-black dark:group-hover:bg-white transition duration-500 ease-in-out focus:bg-white focus:text-black scale-[.45]"
+                    version="1.0" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 172.000000 171.000000"
+                  preserveAspectRatio="xMidYMid meet">
+                  <g transform="translate(0.000000,171.000000) scale(0.100000,-0.100000)"
+                  fill="currentColor" stroke="currentColor">
+                  <path d="M340 1038 c0 -244 4 -398 11 -423 14 -54 61 -100 115 -115 52 -15
+                  199 -9 232 9 20 11 22 19 22 95 l0 84 -45 -6 c-78 -8 -75 -26 -75 379 l0 359
+                  -130 0 -130 0 0 -382z"/>
+                  <path d="M770 960 l0 -460 115 0 c108 0 115 1 115 20 0 26 11 25 63 -2 36 -20
+                  57 -23 142 -23 92 0 104 2 153 29 103 57 145 146 145 306 0 132 -22 199 -87
+                  258 -74 68 -216 92 -332 57 -27 -8 -50 -15 -51 -15 -2 0 -3 65 -3 145 l0 145
+                  -130 0 -130 0 0 -460z m415 0 c34 -13 55 -65 55 -135 0 -31 -7 -71 -15 -90
+                  -22 -54 -89 -70 -160 -41 l-35 15 0 115 0 115 28 15 c32 18 89 20 127 6z"/>
+                  <path d="M130 165 l0 -45 280 0 280 0 0 45 0 45 -280 0 -280 0 0 -45z"/>
+                  </g>
+                </svg>
+                <div class=" text-xs text-gray-400 font-mono transition duration-500 ease-in-out group-hover:text-gray-200" >libe.dev</div>
+            </a>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
