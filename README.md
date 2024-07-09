@@ -2,6 +2,8 @@
 
 Welcome to the Pathfinding Visualizer! This project is built using HTML, Tailwind CSS, and JavaScript. It provides a visual representation of two popular pathfinding algorithms: Breadth-First Search (BFS) and Dijkstra's Algorithm.
 
+<img src="https://bodyulcg.com/wp-content/uploads/path-finding-visualizer.jpg" alt="Pathfinding Visualizer Screenshot" width="300" height="200" style="display: flex; margin: 0 auto;">
+
 ## Features
 
 - **Breadth-First Search (BFS):** An algorithm that explores all nodes at the present "depth" level before moving on to nodes at the next depth level. It's simple and guarantees the shortest path in an unweighted grid.
@@ -10,5 +12,3 @@ Welcome to the Pathfinding Visualizer! This project is built using HTML, Tailwin
 You can see the visualizer in action on the [demo site](https://pathfinding.libe.dev).
 
 To learn more about how I built this project, check out my detailed blog post [here](https://libe.dev/blog/building-a-pathfinding-visualizer-my-path-to-graph-algorithms/Mg).
-
-[libe.dev](https://libe.dev/)
