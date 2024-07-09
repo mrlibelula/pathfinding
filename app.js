@@ -117,6 +117,30 @@ function updateStartButton() {
   start !== null && end !== null ? enableStartBtn() : disableStartBtn();
 }
 
+function enableNav() {
+  gridSizeInput.disabled = false;
+  gridSizeInput.classList.remove('opacity-50', 'cursor-not-allowed');
+  algorithmSelect.disabled = false;
+  algorithmSelect.classList.remove('opacity-50', 'cursor-not-allowed');
+}
+
+function disableNav() {
+  gridSizeInput.disabled = true;
+  gridSizeInput.classList.add('opacity-50', 'cursor-not-allowed');
+  algorithmSelect.disabled = true;
+  algorithmSelect.classList.add('opacity-50', 'cursor-not-allowed');
+}
+
+function enableResetBtn() {
+  generateWallsBtn.disabled = false;
+  generateWallsBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+}
+
+function disableResetBtn() {
+  generateWallsBtn.disabled = true;
+  generateWallsBtn.classList.add('opacity-50', 'cursor-not-allowed');
+}
+
 function enableStartBtn() {
   startBtn.disabled = false;
   startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -290,12 +314,16 @@ startBtn.addEventListener('click', async () => {
   resetGrid();
   hideErrorButton();
   disableStartBtn();
+  disableResetBtn();
+  disableNav();
   let pathFound;
   pathFound = algorithmSelect.value === 'bfs' ? await bfs() : await dijkstra();
   pathFound ? await visualizePath() : showNoPathFound();
   // Stop in all cases
   stopTimer();
+  enableNav();
   enableStartBtn();
+  enableResetBtn();
 });
 
 // Prevent context menu on right-click
