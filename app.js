@@ -7,6 +7,14 @@ const fromDiv = document.getElementById('from');
 const distanceDiv = document.getElementById('distance');
 const toDiv = document.getElementById('to');
 const timerDiv = document.getElementById('timer');
+const color = {};
+
+color.grid = 'bg-gray-700';
+color.startNode = 'bg-white';
+color.endNode = 'bg-rose-500';
+color.bgWall = 'bg-black';
+color.neighbor = 'bg-gray-400/60';
+color.path = 'bg-green-500';
 
 let gridSize = 20;
 let cells = [];
@@ -46,7 +54,7 @@ function createGrid() {
 
   for (let i = 0; i < gridSize * gridSize; i++) {
     const cell = document.createElement('div');
-    cell.classList.add('bg-gray-700', 'aspect-square', 'rounded');
+    cell.classList.add(color.grid, 'aspect-square', 'rounded');
     cell.addEventListener('mousedown', (e) => handleCellInteraction(e, i));
     cell.addEventListener('touchstart', (e) => handleTouchStart(e, i));
     cell.addEventListener('touchend', (e) => handleTouchEnd(e, i));
@@ -95,20 +103,20 @@ function handleTouchEnd(event, index) {
 
 function setStartNode(index) {
   if (start !== null) {
-    cells[start].element.classList.remove('bg-white');
+    cells[start].element.classList.remove(color.startNode);
   }
   start = index;
-  cells[start].element.classList.add('bg-white');
+  cells[start].element.classList.add(color.startNode);
   cells[start].isWall = false;
   updateInfoDisplay();
 }
 
 function setEndNode(index) {
   if (end !== null) {
-    cells[end].element.classList.remove('bg-rose-500');
+    cells[end].element.classList.remove(color.endNode);
   }
   end = index;
-  cells[end].element.classList.add('bg-rose-500');
+  cells[end].element.classList.add(color.endNode);
   cells[end].isWall = false;
   updateInfoDisplay();
 }
@@ -154,7 +162,7 @@ function disableStartBtn() {
 function toggleWall(index) {
   if (index !== start && index !== end) {
     cells[index].isWall = !cells[index].isWall;
-    cells[index].element.classList.toggle('bg-black');
+    cells[index].element.classList.toggle(color.bgWall);
   }
 }
 
@@ -169,10 +177,10 @@ function generateWalls() {
   for (let i = 0; i < cells.length; i++) {
     if (i !== start && i !== end && Math.random() < 0.3) {
       cells[i].isWall = true;
-      cells[i].element.classList.add('bg-black', 'cell-wall', 'bg-cover', 'bg-center', 'bg-no-repeat');
+      cells[i].element.classList.add(color.bgWall, 'cell-wall', 'bg-cover', 'bg-center', 'bg-no-repeat');
     } else {
       cells[i].isWall = false;
-      cells[i].element.classList.remove('bg-black', 'cell-wall', 'bg-cover', 'bg-center', 'bg-no-repeat');
+      cells[i].element.classList.remove(color.bgWall, 'cell-wall', 'bg-cover', 'bg-center', 'bg-no-repeat');
     }
   }
 }
@@ -215,7 +223,7 @@ async function bfs() {
         queue.push(neighbor);
 
         if (neighbor !== end) {
-          cells[neighbor].element.classList.add('bg-gray-400/60', 'animate-pulse');
+          cells[neighbor].element.classList.add(color.neighbor, 'animate-pulse');
           await new Promise(resolve => setTimeout(resolve, 10));
         }
       }
@@ -247,7 +255,7 @@ async function dijkstra() {
         pq.push({ index: neighbor, distance: newDistance });
 
         if (neighbor !== end) {
-          cells[neighbor].element.classList.add('bg-gray-400/60', 'animate-pulse');
+          cells[neighbor].element.classList.add(color.neighbor, 'animate-pulse');
           await new Promise(resolve => setTimeout(resolve, 10));
         }
       }
@@ -264,8 +272,8 @@ async function visualizePath() {
     const neighbors = getNeighbors(current);
     const prevNode = neighbors.reduce((a, b) => cells[a].distance < cells[b].distance ? a : b);
     if (prevNode !== start) {
-      cells[prevNode].element.classList.remove('bg-gray-400/60', 'animate-pulse');
-      cells[prevNode].element.classList.add('bg-green-500');
+      cells[prevNode].element.classList.remove(color.neighbor, 'animate-pulse');
+      cells[prevNode].element.classList.add(color.path);
       await new Promise(resolve => setTimeout(resolve, 10));
     }
     current = prevNode;
@@ -284,7 +292,7 @@ function resetGrid() {
   for (const cell of cells) {
     cell.distance = Infinity;
     cell.visited = false;
-    cell.element.classList.remove('bg-gray-400/60', 'animate-pulse', 'bg-green-500');
+    cell.element.classList.remove(color.neighbor, 'animate-pulse', color.path);
   }
   distanceDiv.classList.remove('bg-white');
   distanceDiv.classList.add('bg-green-500');
