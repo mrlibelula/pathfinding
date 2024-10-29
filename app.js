@@ -208,18 +208,21 @@ async function bfs() {
   const queue = [start];
   cells[start].visited = true;
   cells[start].distance = 0;
+  const parent = new Array(cells.length).fill(null);
 
   while (queue.length > 0) {
     const current = queue.shift();
     if (current === end) {
       stopTimer();
-      return true; // Path found
+      console.log('Path found (BFS):', reconstructPath(parent));
+      return true;
     } 
 
     for (const neighbor of getNeighbors(current)) {
       if (!cells[neighbor].visited) {
         cells[neighbor].visited = true;
         cells[neighbor].distance = cells[current].distance + 1;
+        parent[neighbor] = current;
         queue.push(neighbor);
 
         if (neighbor !== end) {
@@ -231,13 +234,15 @@ async function bfs() {
   }
 
   stopTimer();
-  return false;   // Path not found
+  console.log('No path found (BFS)');
+  return false;
 }
 
 async function dijkstra() {
   startTimer();
   const pq = [{ index: start, distance: 0 }];
   cells[start].distance = 0;
+  const parent = new Array(cells.length).fill(null);
 
   while (pq.length > 0) {
     pq.sort((a, b) => a.distance - b.distance);
@@ -245,13 +250,15 @@ async function dijkstra() {
 
     if (current === end) {
       stopTimer();
-      return true;   // Path found
+      console.log('Path found (Dijkstra):', reconstructPath(parent));
+      return true;
     } 
 
     for (const neighbor of getNeighbors(current)) {
       const newDistance = cells[current].distance + 1;
       if (newDistance < cells[neighbor].distance) {
         cells[neighbor].distance = newDistance;
+        parent[neighbor] = current;
         pq.push({ index: neighbor, distance: newDistance });
 
         if (neighbor !== end) {
@@ -263,7 +270,20 @@ async function dijkstra() {
   }
 
   stopTimer();
+  console.log('No path found (Dijkstra)');
   return false;
+}
+
+function reconstructPath(parent) {
+  const path = [];
+  let current = end;
+  
+  while (current !== null) {
+    path.unshift(current);
+    current = parent[current];
+  }
+  
+  return path;
 }
 
 async function visualizePath() {
